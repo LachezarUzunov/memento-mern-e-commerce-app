@@ -18,4 +18,4 @@ const Loader = () => {
   );
 };
 
-export default Spinner;
+export default Loader;
