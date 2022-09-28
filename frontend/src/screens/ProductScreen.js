@@ -16,7 +16,7 @@ import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
-const ProductScreen = (props) => {
+const ProductScreen = () => {
   const [qty, setQty] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
