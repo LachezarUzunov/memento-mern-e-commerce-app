@@ -12,7 +12,7 @@ import {
   Card,
 } from "react-bootstrap";
 import Message from "../components/Message";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 
 const CartScreen = () => {
   const { id } = useParams();
@@ -32,7 +32,7 @@ const CartScreen = () => {
   }, [dispatch, id, qty]);
 
   const removeFromCartHandler = (id) => {
-    console.log("remove");
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
@@ -45,7 +45,7 @@ const CartScreen = () => {
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
-            Your cart is empty<Link t0="/">Go Back</Link>
+            Your cart is empty <Link to="/">Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant="flush">
