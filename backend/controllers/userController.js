@@ -63,7 +63,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
-  if (iser) {
+  if (user) {
     res.json({
       _id: user._id,
       name: user.name,
