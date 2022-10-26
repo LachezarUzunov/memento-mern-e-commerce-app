@@ -8,6 +8,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
+  userUpdateProfileReducer,
 } from "./reducers/userReducers";
 
 const store = configureStore({
@@ -18,6 +19,7 @@ const store = configureStore({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
   },
 });
 
