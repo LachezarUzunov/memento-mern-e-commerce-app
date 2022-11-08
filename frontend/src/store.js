@@ -25,7 +25,7 @@ const store = configureStore({
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
     orderCreate: orderCreateReducer,
-    orderDetails: orderCreateReducer,
+    orderDetails: orderDetailsReducer,
   },
 });
 

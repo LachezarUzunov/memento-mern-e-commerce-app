@@ -24,9 +24,11 @@ const OrderScreen = () => {
   //   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
-  console.log(order.user);
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [order, orderId, dispatch]);
+
   return loading ? (
     <Loader />
   ) : error ? (
@@ -39,14 +41,25 @@ const OrderScreen = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <strong>Name: </strong> {order.user.name}
-              <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              <p>
+                <strong>Name: </strong> {order.user.name}
+              </p>
+              <p>
+                <a href={`mailto:${order.user.email}`}> {order.user.email}</a>
+              </p>
               <p>
                 <strong style={{ fontWeight: "900" }}>Address: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant="success">
+                  Delivered on {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant="danger">Not Delivered</Message>
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Payment Method</h2>
@@ -54,6 +67,11 @@ const OrderScreen = () => {
                 <strong style={{ fontWeight: "900" }}>Method: </strong>
                 {order.paymentMethod}
               </p>
+              {order.isPaid ? (
+                <Message variant="success">Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant="danger">Not Paid</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
