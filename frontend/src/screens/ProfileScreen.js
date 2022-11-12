@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Row, Col, Table, LinkContainer } from "react-bootstrap";
+import { Button, Form, Row, Col, Table } from "react-bootstrap";
+import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { listMyOrders } from "../actouns/orderActions";
+import { listMyOrders } from "../actions/orderActions";
+import { LinkContainer } from "react-router-bootstrap";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -27,7 +29,7 @@ const ProfileScreen = () => {
 
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
-
+  console.log(orders)
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -139,12 +141,12 @@ const ProfileScreen = () => {
                     {order.isDelivered ? (
                       order.deliveredAt.substring(0, 10)
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                      <i><FaTimes color='red'/></i>
                     )}
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant='light'>Details</Button>
+                      <Button className="btn-sm" variant="light">Details</Button>
                     </LinkContainer>
                   </td>
                 </tr>

@@ -5,8 +5,6 @@ const User = require("../models/userModel");
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  console.log(req.headers.authorization);
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -15,7 +13,6 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
       req.user = await User.findById(decoded.id).select("-password");
 
       next();
@@ -27,4 +24,13 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = protect;
+const admin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as an admin");
+  }
+};
+
+module.exports = { protect, admin };
